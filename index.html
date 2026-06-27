@@ -23,9 +23,10 @@
   "image":"https://sabaihq.com/product-front.jpg",
   "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"600"},
   "offers":[
-    {"@type":"Offer","name":"Single Jar","price":"14.99","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://buy.stripe.com/aFa28r05WbMS4sj52fbII00"},
-    {"@type":"Offer","name":"2-Pack","price":"24.99","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://buy.stripe.com/28EaEX6ukeZ42kbdyLbII01"},
-    {"@type":"Offer","name":"3-Pack","price":"33.99","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://buy.stripe.com/aFa3cv05WbMS1g7gKXbII02"}
+    {"@type":"Offer","name":"Monthly Subscription","price":"12.99","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://buy.stripe.com/5kQeVccoh4Lz9ii1s4bo42V"},
+    {"@type":"Offer","name":"Single Jar","price":"14.99","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://buy.stripe.com/5kQ3cu0Fzce11PQ0o0bo42S"},
+    {"@type":"Offer","name":"2-Pack","price":"24.99","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://buy.stripe.com/fZudR81JD6TH2TUeeQbo42T"},
+    {"@type":"Offer","name":"3-Pack","price":"33.99","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://buy.stripe.com/bJe4gy4VP0vj522fiUbo42U"}
   ]
 }
 </script>
@@ -327,7 +328,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,.
       <h1>Reset your moment in <em>one breath.</em></h1>
       <p class="lead">Sabai is a pocket-sized Thai herbal inhaler. Twist it open, breathe in cool menthol and botanicals, and clear the fog of a long day — at your desk, mid-study session, or 30,000 feet up.</p>
       <div class="hero-cta">
-        <a href="#buy" class="btn lg">Shop Sabai — from $14.99</a>
+        <a href="#buy" class="btn lg">Shop Sabai — from $12.99</a>
         <a href="#how" class="btn outline lg">See how it works</a>
       </div>
       <div class="hero-meta">
@@ -445,16 +446,22 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,.
         <div class="eyebrow">Sabai Herbal Inhaler</div>
         <h2>The pocket Thai inhaler</h2>
         <div class="buy-rating"><span class="stars">★★★★★</span> <strong>4.9</strong> · 600+ reviews</div>
-        <p style="color:var(--muted);font-size:16px">Cool menthol and Thai botanicals in a 10g jar. Pick your pack — most people grab two.</p>
+        <p style="color:var(--muted);font-size:16px">Cool menthol and Thai botanicals in a 10g jar. Subscribe for a fresh jar each month, or grab a one-time pack.</p>
         <div class="ingredients"><b>Botanicals:</b> menthol crystals, clove, nutmeg (mace) flower, pikul blossom &amp; other Thai herbs. Made in Thailand to PIC/S GMP standards.</div>
 
         <div class="variants" id="variants">
+          <div class="variant sel" data-sku="subscribe" data-name="Sabai — Monthly Subscription" data-price="12.99">
+            <span class="vtag">SUBSCRIBE &amp; SAVE · 1 JAR / MONTH</span>
+            <div class="radio"></div>
+            <div class="vinfo"><div class="vname">Monthly Subscription</div><div class="vdesc">A fresh jar every month · cancel anytime</div></div>
+            <div class="vprice">$12.99<span style="display:block;font-size:12.5px;color:var(--muted);font-weight:500">per month</span></div>
+          </div>
           <div class="variant" data-sku="single" data-name="Sabai — Single Jar" data-price="14.99">
             <div class="radio"></div>
             <div class="vinfo"><div class="vname">Single Jar</div><div class="vdesc">Try it · 10g · ~2 months</div></div>
             <div class="vprice">$14.99</div>
           </div>
-          <div class="variant sel" data-sku="double" data-name="Sabai — 2-Pack" data-price="24.99">
+          <div class="variant" data-sku="double" data-name="Sabai — 2-Pack" data-price="24.99">
             <span class="vtag">MOST POPULAR · SAVE 17%</span>
             <div class="radio"></div>
             <div class="vinfo"><div class="vname">2-Pack</div><div class="vdesc">One for the desk, one for the bag</div></div>
@@ -468,7 +475,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,.
           </div>
         </div>
 
-        <button class="btn lg block" onclick="buyNow()">Buy now · <span id="addPrice">$24.99</span></button>
+        <button class="btn lg block" onclick="buyNow()"><span id="buyLabel">Subscribe</span> · <span id="addPrice">$12.99/mo</span></button>
         <p style="text-align:center;font-size:12.5px;color:var(--muted);margin-top:10px">🔒 Secure 1-click checkout · Apple Pay, Google Pay &amp; cards via Stripe</p>
 
         <div class="buy-perks">
@@ -556,8 +563,8 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,.
 
 <!-- STICKY MOBILE BUY -->
 <div class="sticky-buy">
-  <div class="sp" id="stickyPrice">$24.99 <s>$29.98</s></div>
-  <button class="btn" onclick="buyNow()">Buy now 🌿</button>
+  <div class="sp" id="stickyPrice">$12.99/mo</div>
+  <button class="btn" onclick="buyNow()"><span id="stickyBtnLabel">Subscribe</span> 🌿</button>
 </div>
 
 <!-- single-product buy-now flow: no cart, straight to Stripe checkout -->
@@ -593,13 +600,14 @@ document.getElementById('thumbs').addEventListener('click',e=>{
 
 /* === Stripe Payment Links — paste your 3 URLs between the quotes === */
 const STRIPE_LINKS={
-  single:'https://buy.stripe.com/aFa28r05WbMS4sj52fbII00',   // Sabai — Single Jar ($14.99)
-  double:'https://buy.stripe.com/28EaEX6ukeZ42kbdyLbII01',   // Sabai — 2-Pack ($24.99)
-  triple:'https://buy.stripe.com/aFa3cv05WbMS1g7gKXbII02'    // Sabai — 3-Pack ($33.99)
+  subscribe:'https://buy.stripe.com/5kQeVccoh4Lz9ii1s4bo42V', // Sabai — Monthly Subscription ($12.99/mo)
+  single:'https://buy.stripe.com/5kQ3cu0Fzce11PQ0o0bo42S',    // Sabai — Single Jar ($14.99)
+  double:'https://buy.stripe.com/fZudR81JD6TH2TUeeQbo42T',    // Sabai — 2-Pack ($24.99)
+  triple:'https://buy.stripe.com/bJe4gy4VP0vj522fiUbo42U'     // Sabai — 3-Pack ($33.99)
 };
 
 /* state — single-product buy-now flow, no cart */
-let selected={sku:'double',name:'Sabai — 2-Pack',price:24.99};
+let selected={sku:'subscribe',name:'Sabai — Monthly Subscription',price:12.99};
 const money=n=>'$'+n.toFixed(2);
 
 const variants=document.getElementById('variants');
@@ -611,10 +619,14 @@ variants.addEventListener('click',e=>{
   refreshBuy();
 });
 function refreshBuy(){
-  document.getElementById('addPrice').textContent=money(selected.price);
+  const sub=selected.sku==='subscribe';
+  const suffix=sub?'/mo':'';
+  document.getElementById('addPrice').textContent=money(selected.price)+suffix;
+  document.getElementById('buyLabel').textContent=sub?'Subscribe':'Buy now';
+  document.getElementById('stickyBtnLabel').textContent=sub?'Subscribe':'Buy now';
   const selEl=variants.querySelector('.variant.sel');
   const s=selEl.querySelector('s')?selEl.querySelector('s').textContent:'';
-  document.getElementById('stickyPrice').innerHTML=money(selected.price)+(s?' <s>'+s+'</s>':'');
+  document.getElementById('stickyPrice').innerHTML=money(selected.price)+suffix+(s?' <s>'+s+'</s>':'');
 }
 function buyNow(){
   const url=STRIPE_LINKS[selected.sku];
